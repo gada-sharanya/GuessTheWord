@@ -27,27 +27,29 @@ public class GameController {
 
         System.out.println(guessedChar);
         String randomWord = gameService.toString();
+        boolean isSuccess = false;
 
 
 
         if (guessedChar!=null){
 
-            if(guessedChar.trim().isEmpty()){
-                model.addAttribute("errorMessage","You cannot enter a blank value");
-            }
-            else{
-                boolean isGuessed = gameService.addGuess(guessedChar.charAt(0));
-                randomWord=gameService.toString();
-                if(isGuessed == false){
-                    gameUtils.reduceTrial();
-                }
-            }
 
+               boolean isGuessed = gameService.addGuess(guessedChar.charAt(0));
+               //randomWord = gameService.toString();
+               if (isGuessed == false) {
+                   gameUtils.reduceTrial();
+           }
+               else{
+                   randomWord = gameService.toString();
+                   isSuccess = gameUtils.checkSuccess(randomWord,gameUtils.getTriesRemaining());
+
+               }
         }
 
 
         model.addAttribute("wordToDisplay",randomWord);
         model.addAttribute("triesLeft",gameUtils.getTriesRemaining());
+        model.addAttribute("isSuccess",isSuccess);
 
         return "game-home-page";
     }

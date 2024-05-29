@@ -9,18 +9,46 @@
     window.onload = function checkIfGameOver(){
 
         var numberOfTriesRemaining  = [[${triesLeft}]];
+        var isSuccess = [[${isSuccess}]];
         if(numberOfTriesRemaining === 0){
         alert("Game Over");
         document.getElementById('guessedChar').disabled = true;
         document.getElementById('try').disabled = true;
 
         }
+
+         if(isSuccess){
+                alert("Well Played");
+        }
+
+
         }
 
 
         function reloadGame(){
         window.location.href = "http://localhost:8080/reload";
         }
+
+        function validateForm() {
+        var guessedChar = document.getElementById('guessedChar').value;
+
+
+
+
+         if (guessedChar === "" || guessedChar === " ") {
+            alert("Please enter a non-blank character.");
+            return false;
+        }
+
+        if (guessedChar.length > 1) {
+            alert("Please enter only one character.");
+            return false;
+        }
+
+
+
+        return true;
+    }
     </script>
 
 </head>
@@ -32,11 +60,13 @@
 
 <input type="button" value="reload" id="reload" style="float:right;" onclick="reloadGame()">
 <div align="center">
-    <div th:if="${errorMessage}" style="color: red;">
+   <div th:if="${errorMessage}" style="color: red;">
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <form action="game-home" method="GET">
+
+
+    <form action="game-home" method="GET" onsubmit="return validateForm()">
         <label>Guess the Word</label>
         <input type="text" name="guessedChar" id="guessedChar"/>
         <input type="submit" value="try" id="try">

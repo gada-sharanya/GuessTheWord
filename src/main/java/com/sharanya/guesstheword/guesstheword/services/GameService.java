@@ -56,4 +56,20 @@ public class GameService {
         return isGuessed;
     }
 
+
+    /*public boolean successGame(){
+        boolean status = false;
+        int s=0;
+        for (char c: allCharactersofTheWord){
+            if(c!='\u0000'){
+                s+=1;
+            }
+        }
+
+        if(s==allCharactersofTheWord.length ){
+            status = true;
+        }
+
+
+    }*/
 }

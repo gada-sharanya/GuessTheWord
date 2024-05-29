@@ -26,10 +26,24 @@ public class GameUtils {
         return MAX_TRIES;
     }
 
+
+    public boolean checkSuccess(String randomWord,int triesleft){
+
+        for(char c: randomWord.toCharArray()){
+            if (c == '\u005F') {
+                return false;
+            }
+        }
+        if(triesleft<=MAX_TRIES && triesleft>0){
+            return true;
+        }
+        return false;
+    }
+
     public GameService reload(){
 
 
-       GameService gameService= applicationContext.getBean(GameService.class);
+        GameService gameService= applicationContext.getBean(GameService.class);
         return gameService;
 
     }
