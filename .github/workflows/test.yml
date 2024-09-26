@@ -1,0 +1,29 @@
+# .github/workflows/manual-trigger.yml
+name: Manual Trigger for Feature Branch
+
+on:
+  workflow_dispatch:  # Allows manual triggering via GitHub UI
+    inputs:
+      branch:
+        description: 'Branch to run the workflow'
+        required: true
+        default: 'feature/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.branch }}  # Checkout the specific branch
+
+    - name: Run build
+      run: |
+        echo "Building branch: ${{ github.event.inputs.branch }}"
+        # Add your build commands here, e.g., npm install, mvn clean package, etc.
+
+    - name: Run tests
+      run: |
+        echo "Running tests on branch: ${{ github.event.inputs.branch }}"
+        # Add your test commands here
